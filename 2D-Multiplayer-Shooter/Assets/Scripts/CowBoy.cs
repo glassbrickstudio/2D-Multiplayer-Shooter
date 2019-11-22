@@ -203,8 +203,25 @@ public class CowBoy : MonoBehaviourPun
     void Jump()
     {
         rb.AddForce(new Vector2(0, JumpForce* Time.deltaTime));
-        Debug.Log("jumping");
+       
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

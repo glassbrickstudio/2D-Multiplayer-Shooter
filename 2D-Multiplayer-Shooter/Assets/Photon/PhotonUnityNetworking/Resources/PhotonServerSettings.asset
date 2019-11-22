@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 7660b254-5789-4bfc-aa42-f750b44b36bf
+    AppIdRealtime: 
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -25,24 +25,23 @@ MonoBehaviour:
     EnableLobbyStatistics: 0
     NetworkLogging: 1
   StartInOfflineMode: 0
-  PunLogging: 2
+  PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
   RpcList:
+  - ChangeDirection
+  - death
+  - Destroy
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
   - FlipSprite_Left
   - FlipSprite_Right
-  - ChangeDirection
-  - Destroy
   - HealthUpdate
-  - dead
+  - RespawnSpaceship
   - Revive
-  - death
   - SendMsg
+  - UpdatePlayerList
   - YouGotKilledBy
   - YouKilled
-  - UpdatePlayerList
   DisableAutoOpenWizard: 1
   ShowSettings: 0
