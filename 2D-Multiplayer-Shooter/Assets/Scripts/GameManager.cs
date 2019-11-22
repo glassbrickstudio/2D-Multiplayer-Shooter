@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject killFeedBox;
 
     public ConnectedPlayers cp;
+    public GameObject MobileInput;
    
 
 
@@ -176,6 +177,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(playerPrefab.transform.position.x * randomValue, playerPrefab.transform.position.y), Quaternion.identity,0);
         canvas.SetActive(false);
         sceneCam.SetActive(false);
+        MobileInput.SetActive(true);
     }
 
 

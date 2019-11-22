@@ -53,12 +53,45 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        //Assign teams
+        AssignTeam();
         //play game scene
         PhotonNetwork.LoadLevel(1);
     }
 
 
+
+
+
+
+
     #region UIMethods
+
+
+    void AssignTeam()
+    {
+        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+        int size = PhotonNetwork.PlayerList.GetLength(0);
+
+        if (size % 2 == 0)
+        {
+            hash.Add("Team", 0);
+
+        }
+        else {
+            hash.Add("Team", 1);
+        }
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    }
+
+
+
+
+
+
+
+
 
     public void OnClick_CreateNameBtn()
     {

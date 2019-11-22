@@ -34,6 +34,8 @@ public class CowBoy : MonoBehaviourPun
 
     public string MyName;
 
+    Vector3 Mobilemovement = Vector3.zero;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -45,12 +47,14 @@ public class CowBoy : MonoBehaviourPun
             playerCam.SetActive(true);
             playerCam.transform.SetParent(null, false);
 
-            PlayerName.text = PhotonNetwork.NickName;
+            
+
+            PlayerName.text = PhotonNetwork.NickName + "|" + PhotonNetwork.LocalPlayer.CustomProperties["Team"];
             PlayerName.color = Color.green;
             MyName = PhotonNetwork.NickName;
         }
         else {
-            PlayerName.text = photonview.Owner.NickName;
+            PlayerName.text = photonview.Owner.NickName + "|" + photonview.Owner.CustomProperties["Team"];
             PlayerName.color = Color.yellow;
         }
 
@@ -82,8 +86,15 @@ public class CowBoy : MonoBehaviourPun
         /////////////////can move
         if (AllowMoving)
         {
-            var movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0);
-            transform.position += movement * MoveSpeed * Time.deltaTime;
+            //checks if editor or other platform 
+            if (false && Application.platform == RuntimePlatform.WindowsEditor)
+            {
+                var movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0);
+                transform.position += movement * MoveSpeed * Time.deltaTime;
+            }
+            else {
+                transform.position += Mobilemovement * MoveSpeed * Time.deltaTime;
+            }
         }
 
 
@@ -109,6 +120,7 @@ public class CowBoy : MonoBehaviourPun
         {
             anim.SetBool("IsMove", true);
 
+            //flip sprite
             photonView.RPC("FlipSprite_Right", RpcTarget.AllBuffered);
             playerCam.GetComponent<Camera2DFollow>().offset = new Vector3(1.3f,1.53f,0);
 
@@ -124,6 +136,7 @@ public class CowBoy : MonoBehaviourPun
         if (Input.GetKeyDown(KeyCode.A) && anim.GetBool("IsShot") == false)
         {
             anim.SetBool("IsMove", true);
+            //flip sprite
             photonView.RPC("FlipSprite_Left", RpcTarget.AllBuffered);
             playerCam.GetComponent<Camera2DFollow>().offset = new Vector3(-1.3f, 1.53f, 0);
 
@@ -137,8 +150,15 @@ public class CowBoy : MonoBehaviourPun
 
 
     }
-    private void shot()
+    public void shot()
         {
+
+        if (anim.GetBool("IsMove") == true)
+        {
+            return;
+
+        }
+
         
         if (sprite.flipX == false)
         {
@@ -157,11 +177,17 @@ public class CowBoy : MonoBehaviourPun
        
 
 
-        anim.SetBool("isShot", true);
+        anim.SetBool("IsShot", true);
             AllowMoving = false;
         }
 
 
+    public void shotUP()
+    {
+        anim.SetBool("IsShot", false);
+        AllowMoving = true;
+
+    }
 
 
 
@@ -200,18 +226,61 @@ public class CowBoy : MonoBehaviourPun
     }
 
 
-    void Jump()
+    public void Jump()
     {
-        rb.AddForce(new Vector2(0, JumpForce* Time.deltaTime));
+        if (isGrounded)
+        {
+            rb.AddForce(new Vector2(0, JumpForce * Time.deltaTime));
+        }
        
     }
 
 
 
 
+    // ///////////////////////////////////////////////////////  mobile movements///////////////////////////
+
+    public void On_RightMove()
+    {
+        anim.SetBool("IsMove", true);
+        if (anim.GetBool("IsShot") ==false)
+        {
+            //flip sprite
+            photonView.RPC("FlipSprite_Right", RpcTarget.AllBuffered);
+            playerCam.GetComponent<Camera2DFollow>().offset = new Vector3(1.3f, 1.53f, 0);
+                
+           
+        }
+        Mobilemovement = new Vector3(1, 0, transform.position.z);
+
+    }
 
 
+    public void On_LeftMove()
+    {
+        anim.SetBool("IsMove", true);
+        if (anim.GetBool("IsShot") == false)
+        {
+            //flip sprite
+            photonView.RPC("FlipSprite_Left", RpcTarget.AllBuffered);
+            playerCam.GetComponent<Camera2DFollow>().offset = new Vector3(-1.3f, 1.53f, 0);
 
+          
+
+        }
+
+        Mobilemovement = new Vector3(-1, 0, transform.position.z);
+
+
+    }
+
+
+    public void On_PointerExit()
+    {
+        anim.SetBool("IsMove", false);
+        Mobilemovement = new Vector3(0, 0, transform.position.z);
+        
+    }
 
 
 

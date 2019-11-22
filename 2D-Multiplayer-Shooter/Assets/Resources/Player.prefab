@@ -188,7 +188,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 141533542289323334}
-  - {fileID: 6990990793885745542}
+  - {fileID: 3506050623396222457}
   - {fileID: 75876551992715337}
   - {fileID: 3490801666582122502}
   - {fileID: 5416686417446668270}
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca35f7fdbf6fb341b5b9bf3dbe98038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCam: {fileID: 6990990793885745543}
+  playerCam: {fileID: 3506050623396222292}
   MoveSpeed: 5
   sprite: {fileID: 141533542289323335}
   photonview: {fileID: 5259696920327826780}
@@ -1059,13 +1059,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4002a84bf0bc24f48b3bdb774d886b98, type: 3}
---- !u!4 &6990990793885745542 stripped
+--- !u!4 &3506050623396222457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5882549253515482573, guid: 4002a84bf0bc24f48b3bdb774d886b98,
     type: 3}
   m_PrefabInstance: {fileID: 3506050623396222027}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6990990793885745543 stripped
+--- !u!1 &3506050623396222292 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5882549253515482572, guid: 4002a84bf0bc24f48b3bdb774d886b98,
     type: 3}
